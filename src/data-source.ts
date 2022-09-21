@@ -1,8 +1,31 @@
+//require("dotenv").config();
 import { DataSource } from "typeorm";
 import "dotenv/config";
-import "reflect-metadata";
+//import "reflect-metadata";
 
-export const AppDataSource =
+const AppDataSource = new DataSource({
+  type: "postgres",
+  host: process.env.DB_HOST,
+  port: 5432,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB,
+  logging: true,
+  synchronize: false,
+  entities: ["src/entities/*.ts"],
+  migrations: ["src/migrations/*.ts"],
+});
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });
+
+export default AppDataSource;
+/* export const AppDataSource =
   process.env.NODE_ENV === "test"
     ? new DataSource({
         type: "sqlite",
@@ -21,4 +44,4 @@ export const AppDataSource =
         logging: true,
         entities: ["src/entities/*.ts"],
         migrations: ["src/migrations/*.ts"],
-      });
+      }); */
