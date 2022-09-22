@@ -29,5 +29,8 @@ class User {
 
   @Column({ default: true })
   active: boolean;
+
+  @Column({ default: false })
+  adm?: boolean;
 }
 export { User };
