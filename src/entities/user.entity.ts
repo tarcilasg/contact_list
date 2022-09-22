@@ -26,5 +26,8 @@ class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column({ default: true })
+  active: boolean;
 }
 export { User };
