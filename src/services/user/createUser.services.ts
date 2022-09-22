@@ -11,15 +11,6 @@ const createUserService = async ({
   password,
 }: IUserRequest): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
-  /* const findUser = await userRepository.findOne({
-    where: {
-      email: email,
-    },
-  });
-
-  if (findUser) {
-    throw new Error("Sorry. User email already registered!");
-  } */
 
   const hashedPassword = await hash(password, 10);
   const user = userRepository.create({
@@ -27,6 +18,7 @@ const createUserService = async ({
     phone_number,
     email,
     password: hashedPassword,
+    active: true,
   });
 
   await userRepository.save(user);

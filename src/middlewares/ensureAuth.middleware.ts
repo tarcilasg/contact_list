@@ -20,9 +20,10 @@ const ensureAuthMiddleware = (
       if (error) {
         throw new AppError(401, "Invalid token");
       }
-      /* req.user = {
+      //req.user.email === decoded.email;
+      req.user = {
         id: decoded.id,
-      }; */
+      };
       next();
     }
   );

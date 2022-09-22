@@ -25,15 +25,9 @@ const createUserLoginService = async ({
     throw new Error("Password or email is wrong");
   }
 
-  const token = jwt.sign(
-    {
-      id: user.id,
-    },
-    process.env.SECRET_KEY as string,
-    {
-      expiresIn: "5h",
-    }
-  );
+  const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, {
+    expiresIn: "5h",
+  });
 
   return token;
 };
