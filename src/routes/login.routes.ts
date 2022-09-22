@@ -1,7 +1,7 @@
 import { Router } from "express";
-import createUserLoginController from "../controllers/login.controllers";
+import UserControllers from "../controllers/user.controllers";
 
 const loginRoutes = Router();
-loginRoutes.post("", createUserLoginController);
+loginRoutes.post("", UserControllers.login);
 
 export default loginRoutes;
