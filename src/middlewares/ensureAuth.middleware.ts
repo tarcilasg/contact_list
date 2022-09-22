@@ -23,6 +23,7 @@ const ensureAuthMiddleware = (
       //req.user.email === decoded.email;
       req.user = {
         id: decoded.id,
+        adm: decoded.adm,
       };
       next();
     }
