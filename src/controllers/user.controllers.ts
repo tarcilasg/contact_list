@@ -11,7 +11,7 @@ class UserControllers {
       email,
       password,
     });
-    return res.status(201).json(user);
+    return res.status(201).json(instanceToPlain(user));
   }
 
   static async login(req: Request, res: Response) {
