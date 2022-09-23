@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=db
+      - DB_PASSWORD=1234
+      - DB_USER=tarcila
+      - DB=m61
+      - SECRET_KEY=1%@378*(92ejhiuy7&*Ygy
+    volumes:
+      - .:/app
+
+  db:
+    container_name: db
+    image: postgres:14
+    ports:
+      - 5431:5432
+    environment:
+      - POSTGRES_USER=tarcila
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=contacts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tarcila -d contacts"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    volumes:
+      - postgres_contacts:/var/lib/postgresql/data
+
+volumes:
+  postgres_contacts:
+    driver: local
