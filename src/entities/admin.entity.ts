@@ -14,13 +14,13 @@ class Admin {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column("varchar", { length: 50, nullable: false })
+  @Column({ length: 150, nullable: false })
   name: string;
 
-  @Column("varchar", { length: 128, nullable: false })
+  @Column({ length: 150, nullable: false })
   email: string;
 
-  @Column("varchar", { length: 50, nullable: false })
+  @Column({ length: 80, nullable: false })
   @Exclude()
   password: string;
 
