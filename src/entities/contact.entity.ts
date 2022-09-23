@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Unique,
+  OneToMany,
+  JoinColumn,
+} from "typeorm";
+import { User } from "./user.entity";
 
 @Entity("contacts")
 @Unique(["full_name"])
