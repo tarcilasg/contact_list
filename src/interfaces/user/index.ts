@@ -18,20 +18,24 @@ export interface IUserLogin {
   password: string;
 }
 
-export interface IAdmin {
-  full_name: string;
-  phone_number: string;
+export interface IAdminRequest {
+  name: string;
   email: string;
   password: string;
+}
+export interface IAdmin {
+  name: string;
+  email: string;
+  password: string;
+  active: boolean;
   adm: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IAdminUpdate {
-  full_name?: string;
+  name?: string;
   email?: string;
+  active?: boolean;
   password: string;
 }
-/* export interface IUser extends IUserRequest {
-  id: string;
-  createdAt: Date;
-} */
