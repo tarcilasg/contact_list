@@ -55,10 +55,10 @@ class AdminServices {
       }
     );
 
-    return token;
+    return { token };
   }
 
-  static async reaAdminService(): Promise<Admin[]> {
+  static async readAdminService(): Promise<Admin[]> {
     const adminRepository = AppDataSource.getRepository(Admin);
     const users = await adminRepository.find();
 
@@ -81,7 +81,7 @@ class AdminServices {
     }
   }
 
-  static async deleteUserService(id: string) {
+  static async deleteAdminService(id: string) {
     const adminRepository = AppDataSource.getRepository(Admin);
     const user = await adminRepository.findOneBy({ id: id });
 
