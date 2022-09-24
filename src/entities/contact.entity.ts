@@ -22,7 +22,7 @@ class Contact {
   @Column()
   email: string;
 
-  @ManyToOne(() => User, { nullable: true, eager: true })
+  @ManyToOne(() => User, (user) => user.contacts, { eager: true })
   user: User;
 }
 export { Contact };
