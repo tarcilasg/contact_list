@@ -2,6 +2,7 @@ export interface IContactRequest {
   full_name: string;
   phone_number: string;
   email: string;
+  userId: string;
 }
 
 export interface IContact {
