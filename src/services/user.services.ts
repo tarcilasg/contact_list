@@ -20,7 +20,6 @@ class UserServices {
       phone_number,
       email,
       password: hashedPassword,
-      //active: true,
     });
 
     await userRepository.save(user);
@@ -47,13 +46,9 @@ class UserServices {
       throw new AppError(403, "Password or email is wrong");
     }
 
-    const token = jwt.sign(
-      { id: user.id, adm: user.adm },
-      String(process.env.SECRET_KEY),
-      {
-        expiresIn: "5h",
-      }
-    );
+    const token = jwt.sign({ id: user.id }, String(process.env.SECRET_KEY), {
+      expiresIn: "5h",
+    });
 
     return { token };
   }

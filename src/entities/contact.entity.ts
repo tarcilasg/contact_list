@@ -3,8 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   Unique,
-  OneToMany,
-  JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { User } from "./user.entity";
 
@@ -22,5 +21,8 @@ class Contact {
 
   @Column()
   email: string;
+
+  @ManyToOne(() => User, { nullable: true, eager: true })
+  user: User;
 }
 export { Contact };
