@@ -3,19 +3,19 @@ import ContactServices from "../services/contact.services";
 
 class ContactControllers {
   static async create(req: Request, res: Response) {
-    const { full_name, phone_number, email, userId } = req.body;
+    const { full_name, phone_number, email, user_id } = req.body;
     const contact = await ContactServices.createContactService({
       full_name,
       phone_number,
       email,
-      userId,
+      user_id,
     });
     return res.json(contact);
   }
 
   static async read(req: Request, res: Response) {
-    //const userId = req.params.userId;
-    const contacts = await ContactServices.readContactsService();
+    const user_id = req.params.user_id;
+    const contacts = await ContactServices.readContactsService(user_id);
     return res.json(contacts);
   }
 

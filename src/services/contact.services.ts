@@ -12,7 +12,7 @@ class ContactServices {
     full_name,
     phone_number,
     email,
-    userId,
+    user_id,
   }: IContactRequest): Promise<Contact> {
     const contactRepository = AppDataSource.getRepository(Contact);
     const userRepository = AppDataSource.getRepository(User);
@@ -28,7 +28,7 @@ class ContactServices {
 
     const infoUser = await userRepository.findOne({
       where: {
-        id: userId,
+        id: user_id,
       },
     });
 
@@ -47,18 +47,18 @@ class ContactServices {
     return contact;
   }
 
-  static async readContactsService(): Promise<Contact[]> {
+  static async readContactsService(user_id: string): Promise<Contact[]> {
     const contactRepository = AppDataSource.getRepository(Contact);
     const userRepository = AppDataSource.getRepository(User);
+
     const contacts = await contactRepository.find();
-    return contacts;
-    /* if (!(await userRepository.findOne({ where: { id: userId } }))) {
+    const user = await userRepository.findOneBy({ id: user_id });
+    if (!user) {
       throw new AppError(404, "User not found");
     }
+    const contactsUser = contacts.filter((el) => el.user.id === user_id);
 
-    const contactsUser = contacts.filter((el) => el.user.id === userId);
-
-    return contactsUser; */
+    return contactsUser;
   }
 
   static async readOneContactService(id: string) {
