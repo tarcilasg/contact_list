@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   Unique,
+  OneToMany,
 } from "typeorm";
+import { Contact } from "./contact.entity";
 import { Exclude } from "class-transformer";
 
 @Entity("users")
@@ -32,7 +34,7 @@ class User {
   @Column({ default: true })
   active: boolean;
 
-  @Column({ default: false })
-  adm?: boolean;
+  @OneToMany(() => Contact, (contact) => contact.user)
+  contacts: Contact[];
 }
 export { User };
