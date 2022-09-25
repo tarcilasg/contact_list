@@ -1,28 +1,30 @@
 import { Request, Response } from "express";
 import ContactServices from "../services/contact.services";
+import { instanceToPlain } from "class-transformer";
 
 class ContactControllers {
   static async create(req: Request, res: Response) {
-    const { full_name, phone_number, email, user_id } = req.body;
+    const { full_name, phone_number, email } = req.body;
+    const user_id = req.user.id;
     const contact = await ContactServices.createContactService({
       full_name,
       phone_number,
       email,
       user_id,
     });
-    return res.json(contact);
+    return res.json(instanceToPlain(contact));
   }
 
   static async read(req: Request, res: Response) {
-    const user_id = req.params.user_id;
+    const user_id = req.user.id;
     const contacts = await ContactServices.readContactsService(user_id);
-    return res.json(contacts);
+    return res.json(instanceToPlain(contacts));
   }
 
   static async readOne(req: Request, res: Response) {
     const id = req.params.id;
     const contact = await ContactServices.readOneContactService(id);
-    return res.json(contact);
+    return res.json(instanceToPlain(contact));
   }
 
   static async update(req: Request, res: Response) {

@@ -8,10 +8,5 @@ declare global {
         adm: boolean;
       };
     }
-    interface Response {
-      user: {
-        id: string;
-      };
-    }
   }
 }

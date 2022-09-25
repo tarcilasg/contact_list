@@ -34,6 +34,9 @@ class User {
   @Column({ default: true })
   active: boolean;
 
+  @Column({ default: false })
+  adm?: boolean;
+
   @OneToMany(() => Contact, (contact) => contact.user)
   contacts: Contact[];
 }

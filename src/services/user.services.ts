@@ -1,5 +1,5 @@
 import AppDataSource from "../data-source";
-import { IUserRequest, IUserLogin } from "../interfaces/user";
+import { IUserRequest, IUserLogin, IUser } from "../interfaces/user";
 import { User } from "../entities/user.entity";
 import { AppError } from "../errors/appError";
 import { hash, compare } from "bcrypt";
@@ -12,7 +12,7 @@ class UserServices {
     phone_number,
     email,
     password,
-  }: IUserRequest) {
+  }: IUserRequest): Promise<IUser> {
     const userRepository = AppDataSource.getRepository(User);
     const hashedPassword = await hash(password, 10);
     const user = userRepository.create({
@@ -46,21 +46,25 @@ class UserServices {
       throw new AppError(403, "Password or email is wrong");
     }
 
-    const token = jwt.sign({ id: user.id }, String(process.env.SECRET_KEY), {
-      expiresIn: "5h",
-    });
+    const token = jwt.sign(
+      { id: user.id, adm: user.adm },
+      String(process.env.SECRET_KEY),
+      {
+        expiresIn: "5h",
+      }
+    );
 
     return { token };
   }
 
-  static async readUsersService() {
+  static async readUsersService(): Promise<IUser[]> {
     const usersRepository = AppDataSource.getRepository(User);
     const users = await usersRepository.find();
 
     return users;
   }
 
-  static async readOneUserService(id: string) {
+  static async readOneUserService(id: string): Promise<IUser> {
     const usersRepository = AppDataSource.getRepository(User);
     const user = await usersRepository.findOne({ where: { id } });
 
@@ -87,7 +91,7 @@ class UserServices {
     }
   }
 
-  static async deleteUserService(id: string) {
+  static async deleteUserService(id: string): Promise<void> {
     const usersRepository = AppDataSource.getRepository(User);
     const user = await usersRepository.findOneBy({ id: id });
 

@@ -20,7 +20,6 @@ const ensureAuthMiddleware = (
       if (error) {
         throw new AppError(401, "Invalid token");
       }
-      //req.user.email === decoded.email;
       req.user = {
         id: decoded.id,
         adm: decoded.adm,
@@ -28,25 +27,5 @@ const ensureAuthMiddleware = (
       next();
     }
   );
-
-  //const splitToken = token.split(" ");
-
-  /* jwt.verify(
-    splitToken[1],
-    process.env.SECRET_KEY as string,
-    (error: any, decoded: any) => {
-      if (error) {
-        res.status(401).json({
-          message: "Invalid token",
-        });
-      }
-
-      req.user = {
-        id: decoded.id,
-      };
-
-      next();
-    }
-  ); */
 };
 export default ensureAuthMiddleware;

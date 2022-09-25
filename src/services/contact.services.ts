@@ -13,7 +13,7 @@ class ContactServices {
     phone_number,
     email,
     user_id,
-  }: IContactRequest): Promise<Contact> {
+  }: IContactRequest): Promise<IContact> {
     const contactRepository = AppDataSource.getRepository(Contact);
     const userRepository = AppDataSource.getRepository(User);
     const name = await contactRepository.findOne({
@@ -26,11 +26,7 @@ class ContactServices {
       throw new AppError(400, "Please change full_name field");
     }
 
-    const infoUser = await userRepository.findOne({
-      where: {
-        id: user_id,
-      },
-    });
+    const infoUser = await userRepository.findOneBy({ id: user_id });
 
     if (!infoUser) {
       throw new AppError(404, "User not found");
@@ -47,7 +43,7 @@ class ContactServices {
     return contact;
   }
 
-  static async readContactsService(user_id: string): Promise<Contact[]> {
+  static async readContactsService(user_id: string): Promise<IContact[]> {
     const contactRepository = AppDataSource.getRepository(Contact);
     const userRepository = AppDataSource.getRepository(User);
 
@@ -61,7 +57,7 @@ class ContactServices {
     return contactsUser;
   }
 
-  static async readOneContactService(id: string) {
+  static async readOneContactService(id: string): Promise<IContact> {
     const contactRepository = AppDataSource.getRepository(Contact);
     const contact = await contactRepository.findOne({ where: { id } });
 
