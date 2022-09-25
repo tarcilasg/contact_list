@@ -28,7 +28,7 @@ export interface IAdmin {
   email: string;
   password: string;
   active: boolean;
-  adm: boolean;
+  adm?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

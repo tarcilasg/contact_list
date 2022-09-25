@@ -17,6 +17,4 @@ app.use("/contacts", contactRoutes);
 
 app.use(errorMiddleware);
 
-app.listen(3000, () => {
-  console.log("server running!");
-});
+export default app;

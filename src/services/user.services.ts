@@ -13,7 +13,20 @@ class UserServices {
     email,
     password,
   }: IUserRequest): Promise<IUser> {
+    if (!email || !password) {
+      throw new AppError(400, "Can not be empty");
+    }
     const userRepository = AppDataSource.getRepository(User);
+    const oneEmail = await userRepository.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (oneEmail) {
+      throw new AppError(409, "Email already registered!");
+    }
+
     const hashedPassword = await hash(password, 10);
     const user = userRepository.create({
       full_name,
