@@ -1,5 +1,10 @@
 import AppDataSource from "../data-source";
-import { IAdminRequest, IAdminUpdate, IUserLogin } from "../interfaces/user";
+import {
+  IAdminRequest,
+  IAdmin,
+  IAdminUpdate,
+  IUserLogin,
+} from "../interfaces/user";
 import { Admin } from "../entities/admin.entity";
 import { AppError } from "../errors/appError";
 import { hash, compare } from "bcrypt";
@@ -11,7 +16,7 @@ class AdminServices {
     name,
     email,
     password,
-  }: IAdminRequest): Promise<Admin> {
+  }: IAdminRequest): Promise<IAdmin> {
     if (!name || !email || !password) {
       throw new AppError(400, "Can not be empty");
     }
