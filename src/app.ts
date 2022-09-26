@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
 import userRoutes from "./routes/user.routes";
 import loginRoutes from "./routes/login.routes";
 import adminRoutes from "./routes/admin.routes";
 import contactRoutes from "./routes/contact.routes";
 import { errorMiddleware } from "./middlewares/error.middleware";
-import cors from "cors";
 
 const app = express();
 app.use(express.json());
