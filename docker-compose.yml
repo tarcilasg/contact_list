@@ -1,24 +1,20 @@
 version: "3.9"
 
 services:
+  api:
+    container_name: api
+    image: node:16.15.1
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
   db:
     container_name: db
-    image: postgres:14
+    image: postgres:latest
     ports:
       - 5431:5432
     environment:
-      - POSTGRES_USER=tarcila
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=contacts
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tarcila -d contacts"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 5s
-    volumes:
-      - postgres_contacts:/var/lib/postgresql/data
-
-volumes:
-  postgres_contacts:
-    driver: local
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default
